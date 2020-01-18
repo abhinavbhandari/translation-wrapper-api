@@ -21,9 +21,10 @@ def sentencepairs_list(request):
 		serializer = SentencepairsSerializer(data=request.data)
 		if serializer.is_valid():
 			text = serializer.validated_data.get('text')
-			sample_translate_text(text, 'ja', 'abhinavblog-1391d')
+			translated_text = sample_translate_text(text, 'ja', 'abhinavblog-1391d')
 			# serializer.save()
-			return Response(serializer.data, status=status.HTTP_201_CREATED)
+			response_data = { 'translated_text': translated_text }
+			return Response(response_data, status=status.HTTP_201_CREATED)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -52,5 +53,6 @@ def sample_translate_text(text, target_language, project_id):
         source_language_code='en-US',
         target_language_code=target_language)
     # Display the translation for each input text provided
-    for translation in response.translations:
-        print(u"Translated text: {}".format(translation.translated_text))
+    return response.translations[0].translated_text
+    # for translation in response.translations:
+    #     print(u"Translated text: {}".format(translation.translated_text))
