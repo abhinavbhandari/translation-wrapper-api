@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from google.cloud import translate
-
+import os
 from sentencepairs.models import Sentencepairs
 from sentencepairs.serializers import SentencepairsSerializer
 
@@ -36,8 +36,8 @@ def sample_translate_text(text, target_language, project_id):
       text The content to translate in string format
       target_language Required. The BCP-47 language code to use for translation.
     """
-
-    client = translate.TranslationServiceClient.from_service_account_json('/Users/abhinavbhandari/Documents/Coursera/djangoprojects/highlation/AbhinavBlog-44581c15ad5e.json')
+    cred_full_path = os.path.join(os.getcwd(), 'AbhinavBlog-44581c15ad5e.json') 
+    client = translate.TranslationServiceClient.from_service_account_json(cred_full_path)
 
     # TODO(developer): Uncomment and set the following variables
     # text = 'Text you wish to translate'
