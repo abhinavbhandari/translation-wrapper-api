@@ -25,7 +25,7 @@ SECRET_KEY = 'e41c-t*#18d%zb33i)ex%(qtx$&bex2$@he0(bdoow1^wo(ip9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [os.environ.get('CURRENT_HOST', 'localhost'), '127.0.0.1', 'djangotranslationapi-nup2wyfnsq-uc.a.run.app']
 
 
 # Application definition

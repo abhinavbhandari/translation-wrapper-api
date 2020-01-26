@@ -23,9 +23,23 @@ def sentencepairs_list(request):
 			text = serializer.validated_data.get('text')
 			translated_text = sample_translate_text(text, 'ja', 'abhinavblog-1391d')
 			# serializer.save()
-			response_data = { 'translated_text': translated_text }
+			response_data = create_sentence_pair_json(text, translated_text)
+			
+			# response_data = { 'translated_text': translated_text }
 			return Response(response_data, status=status.HTTP_201_CREATED)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+def create_sentence_pair_json(text_en, text_jp):
+	split_jp = text_jp.split("。")
+	split_en = text_en.split(".")
+	
+	json_jp = {i: t.strip() for i, t in enumerate(split_jp) if t.strip() != ""}
+	json_en = {i: t.strip() for i, t in enumerate(split_en) if t.strip() != ""}
+	
+	jp_to_en_map = {j: e for j, e in zip(json_jp.keys(), json_en.keys())}
+	
+	return {"json_jp": json_jp, "json_en": json_en, "jp_to_en_map": jp_to_en_map}
 
 
 def sample_translate_text(text, target_language, project_id):
