@@ -12,7 +12,7 @@ google-cloud-core==1.2.0
 google-cloud-translate==2.0.0
 googleapis-common-protos==1.51.0
 grpcio==1.26.0
-httpie==2.0.0
+httpie==3.1.0
 idna==2.8
 protobuf==3.11.2
 pyasn1==0.4.8
